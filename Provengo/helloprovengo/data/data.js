@@ -3,6 +3,8 @@
  */
 
 const URL = 'https://www.google.com/?hl=en';
+const OpenCartURL = 'localhost/opencart';
+const OpenCartAdminURL = 'localhost/opencart/admin';
 
 const xpaths = {
   searchWindow: {
@@ -13,3 +15,7 @@ const xpaths = {
 }
 
 const searchTerm = 'pizza'
+const admin = 'noder'
+const user = 'lior'
+const userEmail = 'lior@gmail.com'
+const product = 'zloof'
