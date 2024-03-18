@@ -1,5 +1,4 @@
 /* @provengo summon selenium */
-/* @provengo summon constraints */
 
 /**
  * This story opens a new browser window, goes to google.com, and searches for "Pizza".
@@ -25,16 +24,12 @@ bthread('Feeling lucky', function () {
  */
 
 /**
- * This story Adds an item to a user's wishlist
+ * This story responsible for the setup of the tested use cases.
+ * It adds an item to the store and registers a user.
  */
-
-const delItem = Event('admin delete product');
-const addToWishList = Event('user add product to wishlist');
-
-Constraints.after(delItem).block(addToWishList).forever();
-
 bthread('setup', function() {
-  //let s = new SeleniumSession('set').start(OpenCartURL)
+  let s1 = new SeleniumSession('set user').start(registerURL)
+  let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
   request(Event('user registers'));
   request(Event('admin login'));
   request(Event('admin go to products page'));
@@ -42,6 +37,9 @@ bthread('setup', function() {
   request(Event('setup end'));
 })
 
+/**
+ * This story responsible for the use case of user adding a product to wishlist.
+ */
 bthread('Add item to wishlist', function () {
   waitFor(Event('setup end'));
   //let s = new SeleniumSession('user').start(OpenCartURL)
@@ -50,11 +48,21 @@ bthread('Add item to wishlist', function () {
   request(Event('user add product to wishlist'));
 })
 
-
+/**
+ * This story responsible for the use case of admin deleting a product for the store
+ */
 bthread('Admin deletes an item', function () {
   waitFor(Event('setup end'));
   //let s = new SeleniumSession('admin').start(OpenCartAdminURL)
   request(Event('admin login'));
   request(Event('admin go to products page'));
   request(Event('admin delete product'));
+})
+
+/**
+ * This story responsible to block the option to add an item to wishlist after an admin deleted the product.
+ */
+bthread('Block adding to wishlist after removing the item', function () {
+  sync({waitFor: Event('admin delete product')});
+  sync({block: Event('user add product to wishlist')});
 })

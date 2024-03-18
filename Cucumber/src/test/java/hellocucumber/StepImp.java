@@ -25,6 +25,8 @@ public class StepImp {
     private final String product1_tag = "zloof";
     private final String product1_model = "zloof";
     private final String product1_SEO = "zloof";
+    private final String admin_username = "noder";
+    private final String admin_password = "noder";
 
     public StepImp() {
         // Set the path of the ChromeDriver executable
@@ -159,10 +161,10 @@ public class StepImp {
         driver.get("http://localhost/opencart/admin");
         //enter username
         WebElement usernameField = driver.findElement(By.xpath("//*[@id='input-username']"));
-        usernameField.sendKeys("noder");
+        usernameField.sendKeys(admin_username);
         //enter password
         WebElement passwordField = driver.findElement(By.xpath("//*[@id='input-password']"));
-        passwordField.sendKeys("noder");
+        passwordField.sendKeys(admin_password);
         passwordField.sendKeys(Keys.ENTER);
         //press close dialog button
         Thread.sleep(1000);
