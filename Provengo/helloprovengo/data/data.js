@@ -2,10 +2,10 @@
  *  This is a good place to put common test data, project-wide constants, etc.
  */
 
-const OpenCartURL = 'localhost/opencart';
-const OpenCartAdminURL = 'localhost/opencart/admin';
-const registerURL = 'localhost/opencart/index.php?route=account/register&language=en-gb';
-const loginURL = 'localhost/opencart/index.php?route=account/login&language=en-gb';
+const OpenCartURL = 'http://localhost/opencart';
+const OpenCartAdminURL = 'http://localhost/opencart/admin';
+const registerURL = 'http://localhost/opencart/index.php?route=account/register&language=en-gb';
+const loginURL = 'http://localhost/opencart/index.php?route=account/login&language=en-gb';
 
 
 const xpaths = {
@@ -65,18 +65,19 @@ const xpaths = {
     selectProductButton: "//tbody[1]/tr[1]/td[1]/input[1]",
     deleteProductButton: "//button[3]",
     addProductButton: "//div[1]/div[1]/div[1]/a[1]/i[1]"
+  },
+  notification:{
+    closeNotificationButton: "//*[@class='btn-close']"
+
   }
-
 }
-
-const classes = {
-  closeNotificationButton: "btn-close"
-}
-
-const searchTerm = 'pizza'
-const adminUsername = adminPassword = 'noder'
+const adminUsername  = 'noder'
+const adminPassword = 'noder'
 const userFirstName = 'lior'
 const userLastName = 'yishay'
 const userPassword = 'lior123'
 const userEmail = 'lior@gmail.com'
-const productName = productTag = productModel = productSEO = 'zloof'
+const productName = 'zloof'
+const productTag = 'zloof'
+const productModel = 'zloof'
+const productSEO = 'zloof'

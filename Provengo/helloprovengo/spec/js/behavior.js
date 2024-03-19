@@ -8,8 +8,8 @@ bthread('Search', function () {
   let s = new SeleniumSession('search').start(URL)
   composeQuery(s, { text: 'Pizza' })
   startSearch(s)
-})
-    */
+}) */
+
 
 /**
  * This story opens a new browser window, goes to google.com, and searches for "Pasta" using the "I Feel Lucky" feature.
@@ -31,9 +31,17 @@ bthread('setup', function() {
   let s1 = new SeleniumSession('set user').start(registerURL)
   let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
   request(Event('user registers'));
-  request(Event('admin login'));
+  registerUser(s1)
+
+  request(Event('admin login'))
+  adminLogin(s2)
+
   request(Event('admin go to products page'));
+  adminGoToProductsPage(s2)
+
   request(Event('admin add product'));
+  adminAddProduct(s2)
+
   request(Event('setup end'));
 })
 
@@ -42,10 +50,15 @@ bthread('setup', function() {
  */
 bthread('Add item to wishlist', function () {
   waitFor(Event('setup end'));
-  //let s = new SeleniumSession('user').start(OpenCartURL)
+  let s = new SeleniumSession('user').start(loginURL)
   request(Event('user login'));
+  userLogin(s)
+
   request(Event('user search for product'));
+  userSearchProduct(s)
+
   request(Event('user add product to wishlist'));
+  userAddProductToWishlist(s)
 })
 
 /**
@@ -53,10 +66,15 @@ bthread('Add item to wishlist', function () {
  */
 bthread('Admin deletes an item', function () {
   waitFor(Event('setup end'));
-  //let s = new SeleniumSession('admin').start(OpenCartAdminURL)
+  let s = new SeleniumSession('admin').start(OpenCartAdminURL)
   request(Event('admin login'));
+  adminLogin(s)
+
   request(Event('admin go to products page'));
+  adminGoToProductsPage(s)
+
   request(Event('admin delete product'));
+  adminDeleteProduct(s)
 })
 
 /**
