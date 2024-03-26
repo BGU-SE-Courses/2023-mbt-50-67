@@ -1,4 +1,5 @@
 /* @provengo summon selenium */
+/* @provengo summon ctrl */
 
 /**
  * This story opens a new browser window, goes to google.com, and searches for "Pizza".
@@ -32,6 +33,7 @@ bthread('setup', function() {
   let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
   request(Event('user registers'));
   registerUser(s1)
+  //s1.registerUser();
 
   request(Event('admin login'))
   adminLogin(s2)
@@ -88,9 +90,41 @@ bthread('Block adding to wishlist after removing the item', function () {
   sync({block: Event('user add product to wishlist')});
 })
 
+/*
 bthread('delete product only after the user adds it to wishlist', function () {
   sync({
     waitFor: Event('user add product to wishlist'),
     block: Event('admin delete product')
   });
+})
+ */
+
+
+//CHECK THIS!
+bthread('Mark critical events order', function() {
+
+  const endOfActionES = EventSet("", e => e.name.startsWith("End("));
+
+  let e = sync({ waitFor: endOfActionES });
+  let criticalEvents = ["user search for product", "user add product to wishlist", "admin delete product"];
+
+  let criticalEventsOrder = [];
+
+
+
+  for (let i = 0; e.name !== "End(admin delete product)"; i++) {
+
+    criticalEvents.forEach(ce => {
+      if (e.name.includes(ce)) {
+        criticalEventsOrder.push(ce);
+      }
+    });
+    e = sync ({waitFor: endOfActionES});
+  }
+  criticalEventsOrder.push("admin delete product");
+
+  let ceo = criticalEventsOrder.join(" -> ");
+  sync({request: Ctrl.markEvent(ceo)});
+
+
 })

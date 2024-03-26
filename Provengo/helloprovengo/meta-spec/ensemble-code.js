@@ -4,16 +4,29 @@
  * List of events "of interest" that we want test suites to cover.
  */
 const GOALS = [
+    /*
     any(/Howdy/),
     any(/Mars/),
     Ctrl.markEvent("Classic!")
+
+     */
+    Ctrl.markEvent("admin delete product"),
+    Ctrl.markEvent("user search for product -> admin delete product"),
+    Ctrl.markEvent("user search for product -> user add product to wishlist -> admin delete product")
 ];
 
 const makeGoals = function(){
+    /*
     return [ [ any(/Howdy/), any(/Venus/) ],
              [ any(/Mars/) ],
              [ Ctrl.markEvent("Classic!") ] ];
+
+     */
+    return [ [ Ctrl.markEvent("admin delete product") ],
+                [ Ctrl.markEvent("user search for product -> admin delete product") ],
+                [ Ctrl.markEvent("user search for product -> user add product to wishlist -> admin delete product") ] ];
 }
+
 
 /**
  * Ranks test suites by how many events from the GOALS array were met.

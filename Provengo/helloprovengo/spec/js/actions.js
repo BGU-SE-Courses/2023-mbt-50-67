@@ -10,6 +10,7 @@ function startSearch(session) {
 }
 
 const AnyStartInSession = function(s) {
+  //if(s!=null) throw new Error("error1");
   return EventSet(
       `AnyStartInSession-${s}`,
       e => e.data && 'startEvent' in e.data && e.data.startEvent && s.name === e.data.session.name
@@ -31,18 +32,21 @@ defineAction = function(name, func) {
     })
   }
 }
-/*
+
+
 defineAction('registerUser', function (session){
-  with(session){
-    writeText(xpaths.registerWindow.firstNameInput, userFirstName)
-    writeText(xpaths.registerWindow.lastNameInput, userLastName)
-    writeText(xpaths.registerWindow.emailInput, userEmail)
-    writeText(xpaths.registerWindow.passwordInput, userPassword)
-    click(xpaths.registerWindow.agreeCheckbox)
-    click(xpaths.registerWindow.continueButton)
+  session.writeText(xpaths.registerWindow.firstNameInput, userFirstName)
+  session.writeText(xpaths.registerWindow.lastNameInput, userLastName)
+  session.writeText(xpaths.registerWindow.emailInput, userEmail)
+  session.writeText(xpaths.registerWindow.passwordInput, userPassword)
+  session.click(xpaths.registerWindow.agreeCheckbox)
+  session.click(xpaths.registerWindow.continueButton)
     //close()
-  }
-})*/
+
+})
+
+
+
 
 function registerUser(session){
   //sync({ request: Event('Start(registerUser)', { startEvent: true, session: session }) })
@@ -54,12 +58,14 @@ function registerUser(session){
       writeText(xpaths.registerWindow.passwordInput, userPassword)
       click(xpaths.registerWindow.agreeCheckbox)
       click(xpaths.registerWindow.continueButton)
+      //sync({ request: Event('End(registerUser)', { endEvent: true, session: session }) })
       //close()
     }
 
-    //sync({ request: Event('End(login)', { endEvent: true, session: session }) })
   //})
 }
+
+
 
 function adminLogin(session){
   with(session){
