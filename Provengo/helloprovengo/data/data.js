@@ -31,7 +31,8 @@ const xpaths = {
     catalogButton: "//nav[1]/ul[1]/li[2]/a[1]",
     productsButton: "//nav[1]/ul[1]/li[2]/ul[1]/li[2]/a[1]",
     userListButton: "//div[3]/div[1]/div[3]/a[1]",
-    logoutButton: "//li[4]/a[1]/span[1]"
+    logoutButton: "//li[4]/a[1]/span[1]",
+    sidebarButton: "//*[@id='button-menu']/i[1]"
   },
   userWishlistWindow: {
     firstProduct: "//td[2]/a[1]"
@@ -50,7 +51,7 @@ const xpaths = {
     dataTab: "//form[1]/ul[1]/li[2]/a[1]",
     modelInput: "//*[@id='input-model']",
     seoTab: "//form[1]/ul[1]/li[11]/a[1]",
-    seoInput: "//div[2]/div[1]/div[1]/div[1]/button[1]",
+    seoInput: "//*[@id='input-keyword-0-1']",
     saveButton: "//div[2]/div[1]/div[1]/div[1]/button[1]"
   },
   userListWindow: {
@@ -64,7 +65,8 @@ const xpaths = {
     filterButton: "//div[1]/div[1]/div[1]/div[2]/div[6]/button[1]",
     selectProductButton: "//tbody[1]/tr[1]/td[1]/input[1]",
     deleteProductButton: "//button[3]",
-    addProductButton: "//div[1]/div[1]/div[1]/a[1]/i[1]"
+    addProductButton: "//div[1]/div[1]/div[1]/a[1]/i[1]",
+    openFilterButton: "//div[1]/div[1]/button[1]"
   },
   notification:{
     closeNotificationButton: "//*[@class='btn-close']"

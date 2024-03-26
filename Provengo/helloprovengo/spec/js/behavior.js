@@ -43,6 +43,9 @@ bthread('setup', function() {
   adminAddProduct(s2)
 
   request(Event('setup end'));
+
+  s1.close()
+  s2.close()
 })
 
 /**
@@ -83,4 +86,11 @@ bthread('Admin deletes an item', function () {
 bthread('Block adding to wishlist after removing the item', function () {
   sync({waitFor: Event('admin delete product')});
   sync({block: Event('user add product to wishlist')});
+})
+
+bthread('delete product only after the user adds it to wishlist', function () {
+  sync({
+    waitFor: Event('user add product to wishlist'),
+    block: Event('admin delete product')
+  });
 })

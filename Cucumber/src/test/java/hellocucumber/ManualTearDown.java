@@ -7,6 +7,7 @@ public class ManualTearDown {
         System.out.println("manual teardown");
         try{
             stepImp.teardown();
+            stepImp.closeDriver();
         } catch (InterruptedException ignore) {
             System.out.println("teardown failed");
         }

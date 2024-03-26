@@ -45,8 +45,8 @@ defineAction('registerUser', function (session){
 })*/
 
 function registerUser(session){
-  sync({ request: Event('Start(registerUser)', { startEvent: true, session: session }) })
-  block(AnyStartInSession(session), function () {
+  //sync({ request: Event('Start(registerUser)', { startEvent: true, session: session }) })
+  //block(AnyStartInSession(session), function () {
     with(session){
       writeText(xpaths.registerWindow.firstNameInput, userFirstName)
       writeText(xpaths.registerWindow.lastNameInput, userLastName)
@@ -57,8 +57,8 @@ function registerUser(session){
       //close()
     }
 
-    sync({ request: Event('End(login)', { endEvent: true, session: session }) })
-  })
+    //sync({ request: Event('End(login)', { endEvent: true, session: session }) })
+  //})
 }
 
 function adminLogin(session){
@@ -74,6 +74,7 @@ function adminLogin(session){
 
 function adminGoToProductsPage(session){
   with(session){
+    click(xpaths.adminMainWindow.sidebarButton)
     click(xpaths.adminMainWindow.catalogButton)
     click(xpaths.adminMainWindow.productsButton)
   }
@@ -97,8 +98,7 @@ function adminAddProduct(session){
 
 function adminDeleteProduct(session){
   with(session){
-    click(xpaths.adminMainWindow.catalogButton)
-    click(xpaths.adminMainWindow.productsButton)
+    click(xpaths.adminProductListWindow.openFilterButton)
     writeText(xpaths.adminProductListWindow.productNameInput, productName)
     click(xpaths.adminProductListWindow.filterButton)
     waitForClickability(xpaths.adminProductListWindow.selectProductButton)

@@ -72,9 +72,10 @@ public class StepImp {
         continueButton.click();
     }
 
-    public void navigateToProductPage(){
+    public void navigateToProductPage() {
         driver.findElement(By.xpath("//nav[1]/ul[1]/li[2]/a[1]")).click();
         WebElement productCatalogButton = driver.findElement(By.xpath("//nav[1]/ul[1]/li[2]/ul[1]/li[2]/a[1]"));
+        wait.until(webDriver -> productCatalogButton.isEnabled());
         productCatalogButton.click();
 
     }
@@ -204,8 +205,8 @@ public class StepImp {
     }
 
     public void closeDriver(){
-        driver.quit();
         driver.close();
+        driver.quit();
     }
 
     public void deleteUser(String email) throws InterruptedException {
@@ -262,7 +263,7 @@ public class StepImp {
         driver.findElement(By.xpath("//li[2]/div[1]/ul[1]/li[5]/a[1]")).click();
     }
 
-    public boolean productIsDeleted(String product_name){
+    public boolean productIsDeleted(String product_name) {
         navigateToProductPage();
 
         //search the product
