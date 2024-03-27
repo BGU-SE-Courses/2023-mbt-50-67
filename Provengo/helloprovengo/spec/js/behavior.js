@@ -110,18 +110,26 @@ bthread('delete product only after the user adds it to wishlist', function () {
 })
  */
 
-/*
-//CHECK THIS!
-bthread('Mark critical events order', function() {
 
+//CHECK THIS!
+bthread('MarkCheckPoints', function() {
+  //wait for setup to end first
+  sync({ waitFor: Event('setup end') });
+
+  //now we start following the ended processes
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
 
   let e = sync({ waitFor: endOfActionES });
   let criticalEvents = ["userSearchProduct", "userAddProductToWishlist", "adminDeleteProduct"];
 
-  let criticalEventsOrder = [];
-
-  while (e.name !== "End(adminDeleteProduct)") {
+  while(e.name !== "End(adminDeleteProduct)") {
+    let ce = criticalEvents.find(ce => e.name.includes(ce));
+    sync({ request: Ctrl.markEvent(ce) });
+    e = sync({ waitFor: endOfActionES });
+  }
+    sync({ request: Ctrl.markEvent("admin delete product") });
+/*
+  while (e.name == "End(adminDeleteProduct)") {
     criticalEvents.forEach(ce => {
       if (e.name.includes(ce)) {
         criticalEventsOrder.push(ce);
@@ -133,8 +141,8 @@ bthread('Mark critical events order', function() {
 
   let ceo = criticalEventsOrder.join(" -> ");
   sync({request: Ctrl.markEvent(ceo)});
-
+*/
 
 })
-*/
+
 

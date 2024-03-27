@@ -11,8 +11,8 @@ const GOALS = [
 
      */
     Ctrl.markEvent("adminDeleteProduct"),
-    Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
-    Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")
+    Ctrl.markEvent("userSearchProduct"),
+    Ctrl.markEvent("userAddProductToWishlist")
 ];
 
 const makeGoals = function(){
@@ -23,8 +23,8 @@ const makeGoals = function(){
 
      */
     return [ [ Ctrl.markEvent("adminDeleteProduct") ],
-                [ Ctrl.markEvent("userSearchProduct -> adminDeleteProduct") ],
-                [ Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct") ] ];
+                [ Ctrl.markEvent("userSearchProduct") ],
+                [ Ctrl.markEvent("userAddProductToWishlist") ] ];
 }
 
 
