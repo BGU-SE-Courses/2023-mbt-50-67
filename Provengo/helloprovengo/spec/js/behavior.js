@@ -31,23 +31,26 @@ bthread('Feeling lucky', function () {
 bthread('setup', function() {
   let s1 = new SeleniumSession('set user').start(registerURL)
   let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
-  request(Event('user registers'));
-  registerUser(s1)
-  //s1.registerUser();
+  //request(Event('user registers'));
+  //registerUser(s1)
+  s1.registerUser()
 
-  request(Event('admin login'))
-  adminLogin(s2)
+  //request(Event('admin login'))
+  //adminLogin(s2)
+  s2.adminLogin()
 
-  request(Event('admin go to products page'));
-  adminGoToProductsPage(s2)
+  //request(Event('admin go to products page'));
+  //adminGoToProductsPage(s2)
+  s2.adminGoToProductsPage()
 
-  request(Event('admin add product'));
-  adminAddProduct(s2)
+  //request(Event('admin add product'));
+  //adminAddProduct(s2)
+  s2.adminAddProduct()
 
+  //s1.close()
+  //s2.close()
   request(Event('setup end'));
 
-  s1.close()
-  s2.close()
 })
 
 /**
@@ -56,14 +59,19 @@ bthread('setup', function() {
 bthread('Add item to wishlist', function () {
   waitFor(Event('setup end'));
   let s = new SeleniumSession('user').start(loginURL)
-  request(Event('user login'));
-  userLogin(s)
+  //request(Event('user login'));
+  //userLogin(s)
+  s.userLogin()
 
-  request(Event('user search for product'));
-  userSearchProduct(s)
+  interrupt(Event('End(adminDeleteProduct)'), function () {
+    //request(Event('user search for product'));
+    //userSearchProduct(s)
+    s.userSearchProduct()
 
-  request(Event('user add product to wishlist'));
-  userAddProductToWishlist(s)
+    //request(Event('user add product to wishlist'));
+    //userAddProductToWishlist(s)
+    s.userAddProductToWishlist()
+  })
 })
 
 /**
@@ -72,22 +80,25 @@ bthread('Add item to wishlist', function () {
 bthread('Admin deletes an item', function () {
   waitFor(Event('setup end'));
   let s = new SeleniumSession('admin').start(OpenCartAdminURL)
-  request(Event('admin login'));
-  adminLogin(s)
+  //request(Event('admin login'));
+  //adminLogin(s)
+  s.adminLogin()
 
-  request(Event('admin go to products page'));
-  adminGoToProductsPage(s)
+  //request(Event('admin go to products page'));
+  //adminGoToProductsPage(s)
+  s.adminGoToProductsPage()
 
-  request(Event('admin delete product'));
-  adminDeleteProduct(s)
+  //request(Event('admin delete product'));
+  //adminDeleteProduct(s)
+  s.adminDeleteProduct()
 })
 
 /**
  * This story responsible to block the option to add an item to wishlist after an admin deleted the product.
  */
 bthread('Block adding to wishlist after removing the item', function () {
-  sync({waitFor: Event('admin delete product')});
-  sync({block: Event('user add product to wishlist')});
+  sync({waitFor: Event('End(adminDeleteProduct)')});
+  sync({block: Event('Start(userAddProductToWishlist)')});
 })
 
 /*
@@ -99,21 +110,18 @@ bthread('delete product only after the user adds it to wishlist', function () {
 })
  */
 
-
+/*
 //CHECK THIS!
 bthread('Mark critical events order', function() {
 
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
 
   let e = sync({ waitFor: endOfActionES });
-  let criticalEvents = ["user search for product", "user add product to wishlist", "admin delete product"];
+  let criticalEvents = ["userSearchProduct", "userAddProductToWishlist", "adminDeleteProduct"];
 
   let criticalEventsOrder = [];
 
-
-
-  for (let i = 0; e.name !== "End(admin delete product)"; i++) {
-
+  while (e.name !== "End(adminDeleteProduct)") {
     criticalEvents.forEach(ce => {
       if (e.name.includes(ce)) {
         criticalEventsOrder.push(ce);
@@ -128,3 +136,5 @@ bthread('Mark critical events order', function() {
 
 
 })
+*/
+

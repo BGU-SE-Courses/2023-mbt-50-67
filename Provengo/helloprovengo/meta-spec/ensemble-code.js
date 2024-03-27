@@ -10,9 +10,9 @@ const GOALS = [
     Ctrl.markEvent("Classic!")
 
      */
-    Ctrl.markEvent("admin delete product"),
-    Ctrl.markEvent("user search for product -> admin delete product"),
-    Ctrl.markEvent("user search for product -> user add product to wishlist -> admin delete product")
+    Ctrl.markEvent("adminDeleteProduct"),
+    Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
+    Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")
 ];
 
 const makeGoals = function(){
@@ -22,9 +22,9 @@ const makeGoals = function(){
              [ Ctrl.markEvent("Classic!") ] ];
 
      */
-    return [ [ Ctrl.markEvent("admin delete product") ],
-                [ Ctrl.markEvent("user search for product -> admin delete product") ],
-                [ Ctrl.markEvent("user search for product -> user add product to wishlist -> admin delete product") ] ];
+    return [ [ Ctrl.markEvent("adminDeleteProduct") ],
+                [ Ctrl.markEvent("userSearchProduct -> adminDeleteProduct") ],
+                [ Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct") ] ];
 }
 
 
