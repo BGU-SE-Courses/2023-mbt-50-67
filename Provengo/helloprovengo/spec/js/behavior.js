@@ -45,7 +45,7 @@ bthread('Add item to wishlist', function () {
   //request(Event('user search for product'));
   //userSearchProduct(s)
   s.userSearchProduct()
-  interrupt(Event('aboutToDeleteProduct'), function () {
+  interrupt(any('aboutToDeleteProduct'), function () {
 
     //request(Event('user add product to wishlist'));
     //userAddProductToWishlist(s)
@@ -76,8 +76,8 @@ bthread('Admin deletes an item', function () {
  * This story responsible to block the option to add an item to wishlist after an admin deleted the product.
  */
 bthread('Block adding to wishlist after removing the item', function () {
-  sync({waitFor: Event('aboutToDeleteProduct')});
-  sync({block: Event('Start(userAddProductToWishlist)')});
+  sync({waitFor: any('aboutToDeleteProduct')});
+  sync({block: any('Start(userAddProductToWishlist)')});
 })
 
 /*
