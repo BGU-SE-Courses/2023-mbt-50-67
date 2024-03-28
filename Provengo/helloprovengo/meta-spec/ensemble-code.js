@@ -5,22 +5,22 @@
  */
 const GOALS = [
     //goals for domain-specific
-    /*
+
     Ctrl.markEvent("adminDeleteProduct"),
     Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
     Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")
 
-     */
+
 ];
 
 const makeGoals = function(){
     //goals for domain-specific
-    /*
+
     return [ [ Ctrl.markEvent("adminDeleteProduct") ],
                 [ Ctrl.markEvent("userSearchProduct -> adminDeleteProduct") ],
                 [ Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct") ] ];
 
-     */
+
 }
 
 
