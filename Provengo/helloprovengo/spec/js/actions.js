@@ -172,7 +172,7 @@ defineAction('adminDeleteProduct', function (session) {
     waitForClickability(xpaths.adminProductListWindow.selectProductButton)
     click(xpaths.adminProductListWindow.selectProductButton)
     waitForClickability(xpaths.adminProductListWindow.deleteProductButton)
-    sync({ request: bp.Event('aboutToDeleteProduct') })
+    sync({ request: bp.Event('aboutToDeleteProduct', {session: session}) })
     click(xpaths.adminProductListWindow.deleteProductButton)
     acceptAlert()
     //waitForVisibility(xpaths.notification.closeNotificationButton)

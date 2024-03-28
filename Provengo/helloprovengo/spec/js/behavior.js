@@ -1,28 +1,8 @@
 /* @provengo summon selenium */
 /* @provengo summon ctrl */
+/* @provengo summon constraints */
 
-/**
- * This story opens a new browser window, goes to google.com, and searches for "Pizza".
- */
-/**
-bthread('Search', function () {
-  let s = new SeleniumSession('search').start(URL)
-  composeQuery(s, { text: 'Pizza' })
-  startSearch(s)
-}) */
-
-
-/**
- * This story opens a new browser window, goes to google.com, and searches for "Pasta" using the "I Feel Lucky" feature.
- */
-
-/**
-bthread('Feeling lucky', function () {
-  let s = new SeleniumSession('lucky').start(URL)
-  composeQuery(s, { text: 'Pasta' })
-  feelLucky(s)
-})
- */
+//Constraints.after(Event("aboutToDeleteProduct")).block(Event("Start(userAddProductToWishlist)")).forever();
 
 /**
  * This story responsible for the setup of the tested use cases.
@@ -30,7 +10,7 @@ bthread('Feeling lucky', function () {
  */
 bthread('setup', function() {
   //let s1 = new SeleniumSession('set user').start(registerURL)
-  let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
+  let s2 = new SeleniumSession('setup admin').start(OpenCartAdminURL)
   //request(Event('user registers'));
   //registerUser(s1)
   //s1.registerUser()
@@ -62,11 +42,10 @@ bthread('Add item to wishlist', function () {
   //request(Event('user login'));
   //userLogin(s)
   s.userLogin()
-
+  //request(Event('user search for product'));
+  //userSearchProduct(s)
+  s.userSearchProduct()
   interrupt(Event('aboutToDeleteProduct'), function () {
-    //request(Event('user search for product'));
-    //userSearchProduct(s)
-    s.userSearchProduct()
 
     //request(Event('user add product to wishlist'));
     //userAddProductToWishlist(s)
@@ -97,12 +76,12 @@ bthread('Admin deletes an item', function () {
  * This story responsible to block the option to add an item to wishlist after an admin deleted the product.
  */
 bthread('Block adding to wishlist after removing the item', function () {
-  sync({waitFor: Event('End(adminDeleteProduct)')});
+  sync({waitFor: Event('aboutToDeleteProduct')});
   sync({block: Event('Start(userAddProductToWishlist)')});
 })
 
 /*
-bthread('Mark critical events order', function() {
+bthread('domain specific marking', function() {
 
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
 
@@ -126,7 +105,40 @@ bthread('Mark critical events order', function() {
 
 
 })
-*/
+
+
+
+bthread('two way marking', function() {
+  //gives us a list of all the events
+  waitFor(Event('setup end'));
+
+  const eventSet = EventSet("", e => true);
+  let e = sync({ waitFor: eventSet });
+  let prevEvent = e
+  while (e.name !== "End(adminDeleteProduct)") {
+    e = sync ({waitFor: eventSet});
+
+    //we have 2 types of events: selenium actions and our events like 'Start(adminDeleteProduct)'
+    //each one saves the session name differently
+    let e_session = e.session ? e.session : e.data.session.name;
+    let prev_session = prevEvent.session ? prevEvent.session : prevEvent.data.session.name;
+
+    //different sessions
+    if(e_session !== prev_session){
+      sync({request: Ctrl.markEvent(prevEvent.name + ',' + e.name)});
+    }
+
+    //update the prev event to the current event
+    prevEvent = e;
+  }
+
+})
+
+
+ */
+
+
+
 
 
 

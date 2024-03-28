@@ -3,26 +3,19 @@
 /**
  * List of events "of interest" that we want test suites to cover.
  */
-const GOALS = [
-    //goals for domain-specific
-
-    Ctrl.markEvent("adminDeleteProduct"),
-    Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
-    Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")
+const GOALS = [];
 
 
-];
-
-const makeGoals = function(){
-    //goals for domain-specific
-
-    return [ [ Ctrl.markEvent("adminDeleteProduct") ],
-                [ Ctrl.markEvent("userSearchProduct -> adminDeleteProduct") ],
-                [ Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct") ] ];
-
-
+const make2wayGoals = function(){
+    admin_events_list = []
+    user_events_list = []
 }
 
+const makeDomainSpecificGoals = function(){
+    return [Ctrl.markEvent("adminDeleteProduct"),
+            Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
+            Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")]
+}
 
 /**
  * Ranks test suites by how many events from the GOALS array were met.

@@ -57,24 +57,40 @@ public class StepImp {
     }
 
     public void registerUser(String firstName, String lastName, String email, String password){
+        //navigates to register page
         navigateToRegisterPage();
+        //insert first name
         WebElement firstNameElement = driver.findElement(By.xpath("//*[@id='input-firstname']"));
         firstNameElement.sendKeys(firstName);
+
+        //insert last name
         WebElement lastNameElement = driver.findElement(By.xpath("//*[@id='input-lastname']"));
         lastNameElement.sendKeys(lastName);
+
+        //insert email
         WebElement emailElement = driver.findElement(By.xpath("//*[@id='input-email']"));
         emailElement.sendKeys(email);
+
+        //insert password
         WebElement passwordElement = driver.findElement(By.xpath("//*[@id='input-password']"));
         passwordElement.sendKeys(password);
+
+        //mark the agree to terms checkbox
         WebElement agreeCheckbox = driver.findElement(By.xpath("//*[@name='agree']"));
         agreeCheckbox.click();
+
         WebElement continueButton = driver.findElement(By.xpath("//*[@type='submit']"));
         continueButton.click();
     }
 
     public void navigateToProductPage() {
+        //open sidebar
         driver.findElement(By.xpath("//nav[1]/ul[1]/li[2]/a[1]")).click();
+
+        //get the catalog button
         WebElement productCatalogButton = driver.findElement(By.xpath("//nav[1]/ul[1]/li[2]/ul[1]/li[2]/a[1]"));
+
+        //waits for the product catalog button to be clickable and then clicks it
         wait.until(webDriver -> productCatalogButton.isEnabled());
         productCatalogButton.click();
 
@@ -103,7 +119,7 @@ public class StepImp {
     public void addProduct(String name, String tag, String model, String SEO) throws InterruptedException {
         //navigate to add product window
         navigateToProductPage();
-        //put in product fields
+        //insert info in product fields
         driver.findElement(By.xpath("//div[1]/div[1]/div[1]/a[1]/i[1]")).click();
         driver.findElement(By.xpath("//div[1]/div[1]/div[1]/div[1]/div[1]/input[1]")).sendKeys(name);
         driver.findElement(By.xpath("//*[@id='input-meta-title-1']")).sendKeys(tag);
@@ -149,11 +165,14 @@ public class StepImp {
         driver.findElement(By.xpath("//header[1]/div[1]/div[1]/div[2]/div[1]/input[1]")).sendKeys(productName);
         //press search button
         driver.findElement(By.xpath("//header[1]/div[1]/div[1]/div[2]/div[1]/button[1]/i[1]")).click();
-        //press heart <3
         Thread.sleep(1000);
+
+        //scroll to the bottom of the page
         jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollTo(0,document.body.scrollHeight);");
         Thread.sleep(1000);
+
+        //press add to favorite <3
         driver.findElement(By.xpath("//*[@id='product-list']/div/div/div/form/div/button[2]")).click();
         Thread.sleep(1000);
     }
