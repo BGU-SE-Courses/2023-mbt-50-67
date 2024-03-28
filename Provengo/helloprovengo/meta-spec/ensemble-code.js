@@ -4,27 +4,23 @@
  * List of events "of interest" that we want test suites to cover.
  */
 const GOALS = [
+    //goals for domain-specific
     /*
-    any(/Howdy/),
-    any(/Mars/),
-    Ctrl.markEvent("Classic!")
-
-     */
     Ctrl.markEvent("adminDeleteProduct"),
     Ctrl.markEvent("userSearchProduct -> adminDeleteProduct"),
     Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct")
+
+     */
 ];
 
 const makeGoals = function(){
+    //goals for domain-specific
     /*
-    return [ [ any(/Howdy/), any(/Venus/) ],
-             [ any(/Mars/) ],
-             [ Ctrl.markEvent("Classic!") ] ];
-
-     */
     return [ [ Ctrl.markEvent("adminDeleteProduct") ],
                 [ Ctrl.markEvent("userSearchProduct -> adminDeleteProduct") ],
                 [ Ctrl.markEvent("userSearchProduct -> userAddProductToWishlist -> adminDeleteProduct") ] ];
+
+     */
 }
 
 
