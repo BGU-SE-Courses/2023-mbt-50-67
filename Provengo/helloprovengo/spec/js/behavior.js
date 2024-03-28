@@ -29,11 +29,11 @@ bthread('Feeling lucky', function () {
  * It adds an item to the store and registers a user.
  */
 bthread('setup', function() {
-  let s1 = new SeleniumSession('set user').start(registerURL)
+  //let s1 = new SeleniumSession('set user').start(registerURL)
   let s2 = new SeleniumSession('set admin').start(OpenCartAdminURL)
   //request(Event('user registers'));
   //registerUser(s1)
-  s1.registerUser()
+  //s1.registerUser()
 
   //request(Event('admin login'))
   //adminLogin(s2)
@@ -63,7 +63,7 @@ bthread('Add item to wishlist', function () {
   //userLogin(s)
   s.userLogin()
 
-  interrupt(Event('End(adminDeleteProduct)'), function () {
+  interrupt(Event('aboutToDeleteProduct'), function () {
     //request(Event('user search for product'));
     //userSearchProduct(s)
     s.userSearchProduct()
@@ -102,16 +102,6 @@ bthread('Block adding to wishlist after removing the item', function () {
 })
 
 /*
-bthread('delete product only after the user adds it to wishlist', function () {
-  sync({
-    waitFor: Event('user add product to wishlist'),
-    block: Event('admin delete product')
-  });
-})
- */
-
-/*
-//CHECK THIS!
 bthread('Mark critical events order', function() {
 
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
@@ -129,7 +119,7 @@ bthread('Mark critical events order', function() {
     });
     e = sync ({waitFor: endOfActionES});
   }
-  criticalEventsOrder.push("admin delete product");
+  criticalEventsOrder.push("adminDeleteProduct");
 
   let ceo = criticalEventsOrder.join(" -> ");
   sync({request: Ctrl.markEvent(ceo)});
@@ -137,4 +127,6 @@ bthread('Mark critical events order', function() {
 
 })
 */
+
+
 

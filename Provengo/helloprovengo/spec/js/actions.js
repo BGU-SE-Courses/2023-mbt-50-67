@@ -172,6 +172,7 @@ defineAction('adminDeleteProduct', function (session) {
     waitForClickability(xpaths.adminProductListWindow.selectProductButton)
     click(xpaths.adminProductListWindow.selectProductButton)
     waitForClickability(xpaths.adminProductListWindow.deleteProductButton)
+    sync({ request: bp.Event('aboutToDeleteProduct') })
     click(xpaths.adminProductListWindow.deleteProductButton)
     acceptAlert()
     //waitForVisibility(xpaths.notification.closeNotificationButton)
@@ -195,11 +196,13 @@ function adminDeleteProduct(session){
 }*/
 
 
-defineAction('admin Logout', function (session) {
+defineAction('adminLogout', function (session) {
   with(session){
     click(xpaths.adminMainWindow.logoutButton)
   }
 })
+
+
 /*
 function adminLogout(session){
   with(session){
@@ -260,6 +263,8 @@ function userAddProductToWishlist(session){
   }
 }
 */
+
+
 
 
 
