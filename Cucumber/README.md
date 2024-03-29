@@ -3,7 +3,6 @@ This directory contains the cucumber files for testing the user wishlist and adm
 
 ## Tests Setup
 In order to run our tests properly, one has to run the [ManualTearDown](src/test/java/hellocucumber/ManualTearDown.java)
-after this, run the following file : [ManualRegisterUser](src/test/java/hellocucumber/ManualRegisterUser.java)
 
 ## Running the tests
 In order to run our tests you need to open the project using the Inteliji IDE, navigate to the cucumber folder, from there to src/test/resources/hellocucumber and run each of the cucumber files there.
