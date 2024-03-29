@@ -2,8 +2,6 @@
 /* @provengo summon ctrl */
 /* @provengo summon constraints */
 
-//Constraints.after(Event("aboutToDeleteProduct")).block(Event("Start(userAddProductToWishlist)")).forever();
-
 /**
  * This story responsible for the setup of the tested use cases.
  * It adds an item to the store and registers a user.
@@ -80,7 +78,8 @@ bthread('Block adding to wishlist after removing the item', function () {
   sync({block: any('Start(userAddProductToWishlist)')});
 })
 
-/*
+
+
 bthread('domain specific marking', function() {
 
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
@@ -115,8 +114,17 @@ bthread('two way marking', function() {
   const eventSet = EventSet("", e => true);
   let e = sync({ waitFor: eventSet });
   let prevEvent = e
-  while (e.name !== "End(adminDeleteProduct)") {
-    e = sync ({waitFor: eventSet});
+
+  let adminDeleteProduct_flag = false;
+  let userSearchProduct_flag = false;
+  while (!adminDeleteProduct_flag || !userSearchProduct_flag) {
+    e = sync({waitFor: eventSet});
+
+    if (e.name === 'End(adminDeleteProduct)')
+      adminDeleteProduct_flag = true;
+
+    if (e.name === 'End(userSearchProduct)')
+      userSearchProduct_flag = true;
 
     //we have 2 types of events: selenium actions and our events like 'Start(adminDeleteProduct)'
     //each one saves the session name differently
@@ -134,8 +142,56 @@ bthread('two way marking', function() {
 
 })
 
+//note: if the product is deleted before the user adds it to the wishlist, it won't list all the events
+bthread('listing all the admin and user events', function() {
+  eventLists = {
+    admin: [],
+    user: [],
+    undefined: [] //fixme
+  }
+  waitFor(Event('setup end'));
 
- */
+  const eventSet = EventSet("", e => true);
+  let e = sync({ waitFor: eventSet });
+
+  let adminDeleteProduct_flag = false;
+  let userSearchProduct_flag = false;
+  while (!adminDeleteProduct_flag || !userSearchProduct_flag) {
+    if (e.name === 'End(adminDeleteProduct)')
+      adminDeleteProduct_flag = true;
+
+    if (e.name === 'End(userSearchProduct)')
+      userSearchProduct_flag = true;
+
+    //we have 2 types of events: selenium actions and our events like 'Start(adminDeleteProduct)'
+    //each one saves the session name differently
+    //fixme: for some reason it may happen that the e.session and the e.data.session are both undefined. but it's not the case for the bthread above...
+    let e_session = e.session ? e.session : e.data.session ? e.data.session.name : undefined;
+
+    if(e_session === 'admin')
+      eventLists.admin.push(e.name);
+    if(e_session === 'user')
+      eventLists.user.push(e.name);
+    else
+      eventLists.undefined.push(e.name); //fixme
+
+    e = sync ({waitFor: eventSet});
+  }
+
+  sync({request: Ctrl.markEvent('[admin]\t' + eventLists.admin.join(', '))});
+  sync({request: Ctrl.markEvent('[user]\t' + eventLists.user.join(', '))});
+  sync({request: Ctrl.markEvent('[undefined]\t' + eventLists.undefined.join(', '))}); //fixme
+
+  //note: wanted to write the events to a json file, but it's not possible to use 'require' in provengo for some reason
+
+
+
+})
+
+
+
+
+
 
 
 
