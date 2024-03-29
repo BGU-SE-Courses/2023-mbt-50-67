@@ -64,6 +64,7 @@ const xpaths = {
     productNameInput: "//*[@id='input-name']",
     filterButton: "//div[1]/div[1]/div[1]/div[2]/div[6]/button[1]",
     selectProductButton: "//tbody[1]/tr[1]/td[1]/input[1]",
+    selectAllProductsButton: "//thead[1]/tr[1]/td[1]/input[1]",
     deleteProductButton: "//button[3]",
     addProductButton: "//div[1]/div[1]/div[1]/a[1]/i[1]",
     openFilterButton: "//div[1]/div[1]/button[1]"
