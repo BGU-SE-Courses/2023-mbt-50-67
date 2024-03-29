@@ -7,8 +7,9 @@ In this assignment, we tested an open-source software called [software name](htt
 this is a website used for online shopping, with amazon-like features
 
 ## Installation
-$$*TODO* Write instructions on how to install the software and prepare the testing environment$$
-
+first set up the opencart website on local host using the guide on the following link [opencart-guide](https://www.youtube.com/watch?v=uIWGm1vcNZc)
+secondly you need to install provengo [provengo_installation](https://docs.provengo.tech/ProvengoCli/0.9.5/installation.html)
+for cucumber u can use the files from this project
 ## What we tested
 We tested a website for online shopping. We chose to test the following user stories: 
 
@@ -38,5 +39,3 @@ We used two different testing methods:
 
 Each of the testing methods is elaborated in its own directory. 
 
-## Results
-Update all README.md files (except for d-e, see Section 1). Specifically, replace all $$*TODO*…$$ according to the instructions inside the $$.
