@@ -2,29 +2,32 @@
 This is a repository for the system-testing assignment of the Software Quality Engineering course at the [Ben-Gurion University](https://in.bgu.ac.il/), Israel.
 
 ## Assignment Description
-In this assignment, we tested an open-source software called [$$*TODO* software name$$](https://address-of-the-project.com).
+In this assignment, we tested an open-source software called [software name](https://www.opencart.com/).
 
-$$*TODO* Add some general description about the software$$
+this is a website used for online shopping, with amazon-like features
 
 ## Installation
 $$*TODO* Write instructions on how to install the software and prepare the testing environment$$
 
 ## What we tested
-$$*TODO* Add a description of the module and the user stories that you chose to test.
-For example, in the case of the Moodle example, you can write something like this:
+We tested a website for online shopping. We chose to test the following user stories: 
 
-We tested the quiz module that allows for creating and taking quizzes. We chose to test the following user stories: 
+*first User story:* a user adds an item to his wishlist
 
-*User story:* A teacher adds a new quiz to the course with two yes/no questions
+*Preconditions:* 
+- the user is registered to the system
+- the user is logged in the system
+- the product he tries to add exists in the system
 
-*Preconditions:* There is a course with a teacher
+*Expected outcome:* 
+- the product is added to his wishlist
 
-*Expected outcome:* The quiz is added to the course.
+*second User story:* the admin deletes a product from the system
 
-*User story:* A students attempts a quiz and answers correctly.
-
-*Preconditions:* There is a course with a quiz with two yes/no questions and the quiz grade is calculated automatically and the grade is visible to the students upon submission.
-
+*Preconditions:* 
+- the admin is registered as an admin user in the system
+- the admin is logged in the system
+- the product we want to delete exists in the system
 *Expected outcome:* The student receives 100.
 $$
 
@@ -37,16 +40,3 @@ Each of the testing methods is elaborated in its own directory.
 
 ## Results
 Update all README.md files (except for d-e, see Section 1). Specifically, replace all $$*TODO*…$$ according to the instructions inside the $$.
-
-## Detected Bugs
-We detected the following bugs:
-
-1. Bug 1: 
-   1. General description: ...
-   2. Steps to reproduce: ...
-   3. Expected result: ...
-   4. Actual result: ...
-   5. Link to the bug report: (you are encouraged to report the bug to the developers of the software)
-2. Bug 2: ...
-
-$$*TODO* if you did not detect the bug, you should delete this section$$  
