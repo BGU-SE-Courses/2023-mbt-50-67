@@ -1,11 +1,6 @@
 # Testing OpenCart using Provengo
 This directory contains the Provengo project for testing OpenCart.
 
-$$*TODO* 
-1. replace the name of the folder 'helloprovengo' with the name of your software (use underscore/title case to avoid spaces)
-2. Search and replace for the word 'helloprovengo' in the entire project and replace it with the new folder name. 
-$$
-
 ## Running the tests
 To run a single random test, run:
 ```shell 
@@ -37,6 +32,10 @@ The test data is in [data.js](helloprovengo/data/data.js), the set of possible a
 See the files for a detailed description.
 
 $$*TODO*: Make sure that the text inside the files is informative, self-explanatory, and properly written (meaningful variable names, no magic number, etc.). Specifically, write for each bthread a comment that explain what it does and make sure that the bthread's name reflects its purpose. See the file for an example.$$
+
+## Tests Setup
+In order to run our tests properly, one has to run the [ManualTearDown](src/test/java/hellocucumber/ManualTearDown.java)
+after this, run the following file : [ManualRegisterUser](src/test/java/hellocucumber/ManualRegisterUser.java)
 
 ## How we tested the system
 See the last two lessons of the [Provengo Course](https://provengo.github.io/Course/Online%20Course/0.9.5/index.html) for a detailed explanation of the following steps.
