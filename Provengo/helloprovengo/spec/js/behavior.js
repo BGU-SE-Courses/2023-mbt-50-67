@@ -47,7 +47,9 @@ bthread('Block adding to wishlist after removing the item', function () {
   sync({block: any('Start(userAddProductToWishlist)')});
 })
 
-
+/**
+ * bthread that responsible for marking the critical events in the system for the domain specific marking.
+ */
 /*
 bthread('domain specific marking', function() {
 
@@ -74,7 +76,15 @@ bthread('domain specific marking', function() {
 
  */
 
-
+/**
+ * bthread that responsible for marking the states of the user and admin that were visited during the test.
+ * an example marking is: 1,2,admin
+ * 1 - the index of the user event
+ * 2 - the index of the admin event
+ * admin - the session that the event belongs to (user/admin)
+ * this marking means that from user event 1 and admin event 1, the next event was an admin event.
+ * therefore recording the edges that were visited during the test.
+ */
 bthread('two way marking', function() {
   //gives us a list of all the events
   waitFor(Event('setup end'));
