@@ -7,26 +7,10 @@
  * It adds an item to the store and registers a user.
  */
 bthread('setup', function() {
-  //let s1 = new SeleniumSession('set user').start(registerURL)
-  let s2 = new SeleniumSession('setup admin').start(OpenCartAdminURL)
-  //request(Event('user registers'));
-  //registerUser(s1)
-  //s1.registerUser()
-
-  //request(Event('admin login'))
-  //adminLogin(s2)
-  s2.adminLogin()
-
-  //request(Event('admin go to products page'));
-  //adminGoToProductsPage(s2)
-  s2.adminGoToProductsPage()
-
-  //request(Event('admin add product'));
-  //adminAddProduct(s2)
-  s2.adminAddProduct()
-
-  //s1.close()
-  //s2.close()
+  let s = new SeleniumSession('setup admin').start(OpenCartAdminURL)
+  s.adminLogin()
+  s.adminGoToProductsPage()
+  s.adminAddProduct()
   request(Event('setup end'));
 
 })
@@ -37,16 +21,9 @@ bthread('setup', function() {
 bthread('Add item to wishlist', function () {
   waitFor(Event('setup end'));
   let s = new SeleniumSession('user').start(loginURL)
-  //request(Event('user login'));
-  //userLogin(s)
   s.userLogin()
-  //request(Event('user search for product'));
-  //userSearchProduct(s)
   s.userSearchProduct()
   interrupt(any('aboutToDeleteProduct'), function () {
-
-    //request(Event('user add product to wishlist'));
-    //userAddProductToWishlist(s)
     s.userAddProductToWishlist()
   })
 })
@@ -57,16 +34,8 @@ bthread('Add item to wishlist', function () {
 bthread('Admin deletes an item', function () {
   waitFor(Event('setup end'));
   let s = new SeleniumSession('admin').start(OpenCartAdminURL)
-  //request(Event('admin login'));
-  //adminLogin(s)
   s.adminLogin()
-
-  //request(Event('admin go to products page'));
-  //adminGoToProductsPage(s)
   s.adminGoToProductsPage()
-
-  //request(Event('admin delete product'));
-  //adminDeleteProduct(s)
   s.adminDeleteProduct()
 })
 
@@ -79,8 +48,8 @@ bthread('Block adding to wishlist after removing the item', function () {
 })
 
 
-
-/*bthread('domain specific marking', function() {
+/*
+bthread('domain specific marking', function() {
 
   const endOfActionES = EventSet("", e => e.name.startsWith("End("));
 
@@ -101,10 +70,11 @@ bthread('Block adding to wishlist after removing the item', function () {
 
   let ceo = criticalEventsOrder.join(" -> ");
   sync({request: Ctrl.markEvent(ceo)});
-})*/
+})
+
+ */
 
 
-/*
 bthread('two way marking', function() {
   //gives us a list of all the events
   waitFor(Event('setup end'));
@@ -148,11 +118,7 @@ bthread('two way marking', function() {
     }else{
       user_count++;
     }
-
-    //different sessions
-    if(prev_session !== e_session){
-      marks.push(`${user_count},${admin_count},${prev_session}`);
-    }
+    marks.push(`${user_count},${admin_count},${prev_session}`);
 
     //update the prev event to the current event
     prevEvent = e;
@@ -161,14 +127,9 @@ bthread('two way marking', function() {
   for (let i = 0; i < marks.length; i++) {
     sync({request: Ctrl.markEvent(marks[i])});
   }
-
-
-
 })
 
 
-
- */
 
 
 
