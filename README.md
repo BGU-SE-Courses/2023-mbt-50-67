@@ -29,8 +29,8 @@ We tested a website for online shopping. We chose to test the following user sto
 - the admin is registered as an admin user in the system
 - the admin is logged in the system
 - the product we want to delete exists in the system
-*Expected outcome:* The student receives 100.
-$$
+*Expected outcome:*
+- the product got deleted from the system
 
 ## How we tested
 We used two different testing methods:
